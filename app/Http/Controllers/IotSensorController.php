@@ -9,9 +9,12 @@ class IotSensorController extends Controller
 {
     public function show($id)
     {
-        $iotSensor = IotSensor::where('iot_device_id', $id)->get();
+        $iotSensor = IotSensor::select('iot_sensors.*')
+            ->join('iot_devices', 'iot_sensors.iot_device_id', '=', 'iot_devices.id')
+            ->where('iot_sensors.id', $id)
+            ->get();
 
-        if (!$iotSensor) {
+        if ($iotSensor->isEmpty()) {
             return response()->json([
                 'status' => 'error',
                 'message' => 'IoT Sensor not found'
