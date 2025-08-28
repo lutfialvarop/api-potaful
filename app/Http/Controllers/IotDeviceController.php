@@ -9,7 +9,7 @@ class IotDeviceController extends Controller
 {
     public function show($id)
     {
-        $iotDevice = IotDevice::where('device_id', $id)->first();
+        $iotDevice = IotDevice::where('iot_device_id', $id)->first();
 
         if (!$iotDevice) {
             return response()->json([
