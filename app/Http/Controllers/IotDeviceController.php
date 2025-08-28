@@ -9,9 +9,9 @@ class IotDeviceController extends Controller
 {
     public function show($id)
     {
-        $iotDevice = IotDevice::where('iot_device_id', $id)->get();
+        $iotDevice = IotDevice::where('device_id', $id)->first();
 
-        if ($iotDevice->isEmpty()) {
+        if (!$iotDevice) {
             return response()->json([
                 'status' => 'error',
                 'message' => 'IoT Device not found'
