@@ -13,7 +13,7 @@ use Illuminate\Support\Facades\Route;
 // })->middleware('auth:sanctum');
 
 Route::prefix('v1')->group(function () {
-    Route::prefix('plant-packages')->group(function () {
+    Route::prefix('plant-package')->group(function () {
         Route::get('/', [PlantPackageController::class, 'index']);
         Route::get('/{id}', [PlantPackageController::class, 'show']);
         Route::post('/', [PlantPackageController::class, 'store']);
