@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\IotDevice;
+use App\Models\IotSensor;
 use Illuminate\Http\Request;
 
 class IotDeviceController extends Controller
@@ -17,6 +18,8 @@ class IotDeviceController extends Controller
                 'message' => 'IoT Device not found'
             ], 404);
         }
+
+        $iotDevice->sensors = IotSensor::where('iot_device_id', $iotDevice->id)->get();
 
         return response()->json([
             'status' => 'success',
