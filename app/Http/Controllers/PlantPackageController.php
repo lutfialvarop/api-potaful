@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Material;
 use App\Models\PlantPackage;
+use App\Models\SpecificNeed;
 use Illuminate\Http\Request;
 
 class PlantPackageController extends Controller
@@ -21,6 +23,10 @@ class PlantPackageController extends Controller
     public function show($id)
     {
         $plantPackage = PlantPackage::find($id);
+        $materials = Material::select('id', 'name')->where('plant_package_id', $plantPackage->id)->get();
+        $plantPackage->materials = $materials;
+        $specificNeeds = SpecificNeed::select('id', 'name')->where('plant_package_id', $plantPackage->id)->get();
+        $plantPackage->specific_needs = $specificNeeds;
 
         if (!$plantPackage) {
             return response()->json([

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\PermacultureSolution;
 use App\Models\PlantAidGuide;
 use Illuminate\Http\Request;
 
@@ -10,6 +11,11 @@ class PlantAidGuideController extends Controller
     public function index()
     {
         $plantAidGuides = PlantAidGuide::all();
+        // map function to append permaculture_solutions to each PlantAidGuide
+        $plantAidGuides->map(function ($plantAidGuide) {
+            $plantAidGuide->permaculture_solutions = PermacultureSolution::where('plant_aid_guide_id', $plantAidGuide->id)->get();
+            return $plantAidGuide;
+        });
 
         return response()->json([
             'status' => 'success',
